@@ -188,9 +188,18 @@
           </cylinder>
         </geometry>
       </collision>
+      <!-- FH: z axis of camera looks to up of image and y axes looks left of 
+      image relative_to is used to manage orientation if relative to 
+      were not used the pose would be rel to attached frame and since attached 
+      to is not used in this sdf the pose is rel to model frame link:
+      http://sdformat.org/tutorials?tut=pose_frame_semantics
+      and http://sdformat.org/spec?elem=sensor-->
       <sensor name="camera" type="camera">
-        <pose>0 0 0 -1.57 0 -1.57</pose>
+        <pose relative_to="pitch_link">0 0 0 0 0 -1.57079</pose> <!-- xyz RPY -->
         <camera>
+          <save enabled="false">
+            <path>/tmp/scourge_world</path>
+          </save>
           <horizontal_fov>2.0</horizontal_fov>
           <image>
             <width>640</width>
@@ -201,8 +210,11 @@
             <far>15000</far>
           </clip>
         </camera>
+        <!-- https://classic.gazebosim.org/tutorials?tut=camera_save -->
+        <!-- to convert images into video -->
+        <!-- ffmpeg -r 30 -pattern_type glob -i '/tmp/camera_save_tutorial/default_camera_link_my_camera*.jpg' -c:v libx264 my_camera.mp4-->
         <always_on>1</always_on>
-        <update_rate>10</update_rate>
+        <update_rate>60</update_rate>
         <visualize>1</visualize>
 
         <plugin filename="CameraZoomPlugin"
