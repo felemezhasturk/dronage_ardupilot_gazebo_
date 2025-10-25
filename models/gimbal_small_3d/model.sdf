@@ -2,6 +2,10 @@
 <sdf version="1.9">
   <model name="gimbal_small_3d">
     <pose>0 0 0.18 0 0 0</pose>
+	<!-- <plugin filename="gz-sim-model-pose-publisher-system" name="gz::sim::systems::ModelPosePublisher"> -->
+	<!-- 	<topic>/quad_pose</pose_topic> -->
+	<!-- 	<update_rate>50</update_rate> -->
+	<!-- </plugin> -->
     <link name="base_link">
       <inertial>
         <mass>0.2</mass>
@@ -222,14 +226,33 @@
           <max_zoom>125.0</max_zoom>
           <slew_rate>0.42514285714</slew_rate>
         </plugin>
-        
-        <plugin name="GstCameraPlugin"
-            filename="GstCameraPlugin">
-          <udp_host>127.0.0.1</udp_host>
-          <udp_port>5600</udp_port>
-          <use_basic_pipeline>true</use_basic_pipeline>
-          <use_cuda>false</use_cuda>
+
+        <plugin name="GstCameraPlugin" filename="GstCameraPlugin">
+          <robotNamespace></robotNamespace>
+          <topicName>/camera/image_raw</topicName>
+          <frameId>camera_link</frameId>
+          <height>480</height>
+          <width>640</width>
+          <rate>30</rate>
+          <host>127.0.0.1</host>
+          <port>5600</port>
+          <codec>h264</codec>
+          <bitrate>2000000</bitrate>
+          <enable_topic>enable_gst_streaming</enable_topic>
+          <!-- <enable_streaming>enable_gst_streaming</enable_streaming> -->
         </plugin>
+        <!-- <plugin name="GstCameraPlugin" -->
+        <!--     filename="GstCameraPlugin"> -->
+        <!--   <udp_host>127.0.0.1</udp_host> -->
+        <!--   <udp_port>5600</udp_port> -->
+        <!--   <use_basic_pipeline>true</use_basic_pipeline> -->
+        <!--   <use_cuda>true</use_cuda> -->
+        <!-- </plugin> -->
+
+        <!-- The <image_topic> and <enable_topic> parameters are deduced from the topic name for the camera sensor, but may be overriden if required. -->
+        <!-- The gimbal.sdf world includes a 3 degrees of freedom gimbal with a zoomable camera. To start streaming: -->
+        <!-- gz topic -t /world/gimbal/model/mount/model/gimbal/link/pitch_link/sensor/camera/image/enable_streaming -m gz.msgs.Boolean -p "data: 1" -->
+        <!-- gst-launch-1.0 -v udpsrc port=5600 caps='application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H264' ! rtph264depay ! avdec_h264 ! videoconvert ! autovideosink sync=false -->
 
       </sensor>
     </link>

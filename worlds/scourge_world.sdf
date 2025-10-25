@@ -416,35 +416,43 @@
                 <pose>0 0 1.0 0 0 0</pose>
             </waypoint>
             <waypoint>
-                <time>2</time>
-                <pose>2.0 0 1.0 0 0 0</pose>
-            </waypoint>
-            <waypoint>
-                <time>2.5</time>
-                <pose>2 0 1.0 0 0 1.57</pose>
-            </waypoint>
-            <waypoint>
-                <time>4</time>
-                <pose>2 2 1.0 0 0 1.57</pose>
-            </waypoint>
-            <waypoint>
-                <time>4.5</time>
-                <pose>2 2 1.0 0 0 3.142</pose>
+                <time>5</time>
+                <pose>8.0 0 1.0 0 0 0</pose>
             </waypoint>
             <waypoint>
                 <time>6</time>
-                <pose>0 2 1 0 0 3.142</pose>
+                <pose>8 0 1.0 0 0 1.57</pose>
             </waypoint>
             <waypoint>
-                <time>6.5</time>
-                <pose>0 2 1 0 0 -1.57</pose>
+                <time>16</time>
+                <pose>8 15 1.0 0 0 1.57</pose>
             </waypoint>
             <waypoint>
-                <time>8</time>
-                <pose>0 0 1.0 0 0 -1.57</pose>
+                <time>17</time>
+                <pose>8 15 1.0 0 0 3.142</pose>
             </waypoint>
             <waypoint>
-                <time>8.5</time>
+                <time>22</time>
+                <pose>-15 15 1 0 0 3.142</pose>
+            </waypoint>
+            <waypoint>
+                <time>23</time>
+                <pose>-15 15 1 0 0 -1.57</pose>
+            </waypoint>
+            <waypoint>
+                <time>27</time>
+                <pose>-15 10 1 0 0 -1.57</pose>
+            </waypoint>
+            <waypoint>
+                <time>27.5</time>
+                <pose>-15 10 1 0 0 -0.785</pose>
+            </waypoint>
+            <waypoint>
+                <time>38</time>
+				<pose>0 0 1 0 0 -0.785 </pose>
+            </waypoint>
+            <waypoint>
+                <time>39</time>
                 <pose>0 0 1.0 0 0 0</pose>
             </waypoint>
         </trajectory>
