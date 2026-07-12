@@ -1,0 +1,235 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version="1.9">
+  <world name="scourge_world_milbase_simple">
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"></plugin>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"></plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"></plugin>
+    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu"></plugin>
+    <plugin filename="gz-sim-navsat-system" name="gz::sim::systems::NavSat"></plugin>
+    <scene>
+      <grid>false</grid>
+      <origin_visual>false</origin_visual>
+      <ambient>0.85 0.85 0.85 1</ambient>
+      <sky>
+        <clouds>
+          <speed>12</speed>
+        </clouds>
+      </sky>
+      <background>0.35 0.35 0.35 1.0</background>
+    </scene>
+    <spherical_coordinates>
+      <latitude_deg>-38.7755936</latitude_deg>
+      <longitude_deg>-9.1375554</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+      <surface_model>EARTH_WGS84</surface_model>
+      <!-- NED instead of ENU: Didnt worked -->
+      <world_frame_orientation>ENU</world_frame_orientation>
+    </spherical_coordinates>
+    <!-- A global light source -->
+    <light name="sun" type="directional">
+      <pose>0 0 1000 0 0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.5 0.5 0.5 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.4</direction>
+    </light>
+    <gui fullscreen="0">
+      <plugin filename="GzScene3D" name="3D View">
+        <!-- TODO: FH: Try MinimalScene instead of GzScene3D -->
+        <gz-gui>
+          <title>3D View</title>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="state" type="string">docked</property>
+        </gz-gui>
+        <engine>ogre2</engine>
+        <scene>scene</scene>
+        <ambient_light>0.4 0.4 0.4</ambient_light>
+        <background_color>0.8 0.8 0.8</background_color>
+        <camera_pose>-6 0 6 0 0.5 0</camera_pose>
+        <!-- <camera_follow>
+          <target>X3</target>
+          <p_gain>0.5</p_gain>
+          <offset>-3 0.5 11</offset>
+        </camera_follow> -->
+      </plugin>
+      <plugin filename="WorldControl" name="World control">
+        <gz-gui>
+          <title>World control</title>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="resizable" type="bool">false</property>
+          <property key="height" type="double">72</property>
+          <property key="width" type="double">121</property>
+          <property key="z" type="double">1</property>
+          <property key="state" type="string">floating</property>
+          <anchors target="3D View">
+            <line own="left" target="left"></line>
+            <line own="bottom" target="bottom"></line>
+          </anchors>
+        </gz-gui>
+        <play_pause>true</play_pause>
+        <step>true</step>
+        <start_paused>true</start_paused>
+        <use_event>true</use_event>
+      </plugin>
+      <plugin filename="WorldStats" name="World stats">
+        <gz-gui>
+          <title>World stats</title>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="resizable" type="bool">false</property>
+          <property key="height" type="double">110</property>
+          <property key="width" type="double">290</property>
+          <property key="z" type="double">1</property>
+          <property key="state" type="string">floating</property>
+          <anchors target="3D View">
+            <line own="right" target="right"></line>
+            <line own="bottom" target="bottom"></line>
+          </anchors>
+        </gz-gui>
+        <sim_time>true</sim_time>
+        <real_time>true</real_time>
+        <real_time_factor>true</real_time_factor>
+        <iterations>true</iterations>
+      </plugin>
+      <plugin filename="ImageDisplay" name="ImageDisplay">
+        <gz-gui>
+          <property key="resizable" type="bool">true</property>
+          <property key="width" type="double">500</property>
+          <property key="height" type="double">500</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">true</property>
+        </gz-gui>
+        <topic>camera</topic>
+        <!-- ? -->
+      </plugin>
+      <!-- Inspector -->
+      <plugin filename="ComponentInspector" name="Component inspector">
+        <gz-gui>
+          <property key="state" type="string">docked</property>
+        </gz-gui>
+      </plugin>
+      <!-- Entity tree -->
+      <plugin filename="EntityTree" name="Entity tree">
+        <gz-gui>
+          <property key="state" type="string">docked</property>
+        </gz-gui>
+      </plugin>
+    </gui>
+    <include>
+      <uri>../models/iris_with_gimbal</uri>
+      <pose degrees="true">0 0 0.5 0 0 90</pose>
+    </include>
+    <include>
+      <name>leopard2_1</name>
+      <pose>7 -9 1.2 0 0 0</pose>
+      <uri>../models/leopard2</uri>
+    </include>
+    <include>
+      <name>military_boss_1</name>
+      <pose>-5.5 -3.5 0.07 0 0 0</pose>
+      <uri>../models/Military_Action_Figure_SG_v2</uri>
+    </include>
+    <include>
+      <name>dronehunter_1</name>
+      <pose>-9 -10 1.05 0 0 0</pose>
+      <uri>../models/dronehunter</uri>
+    </include>
+    <include>
+      <name>dronehunter_2</name>
+      <pose>10 -5 1.05 0 0 0</pose>
+      <uri>../models/dronehunter</uri>
+    </include>
+    <include>
+      <name>dronehunter_3</name>
+      <pose>15 -6 1.05 0 0 0</pose>
+      <uri>../models/dronehunter</uri>
+    </include>
+    <include>
+      <name>dronehunter_4</name>
+      <pose>1 9 1.3 0 0 0</pose>
+      <uri>../models/dronehunter</uri>
+    </include>
+    <include>
+      <name>dronehunter_5</name>
+      <pose>-17 -8 1.2 0 0 1</pose>
+      <uri>../models/dronehunter</uri>
+    </include>
+    <include>
+      <name>heavyMachine_1</name>
+      <pose>-14 -4 1.2 0 0 0</pose>
+      <uri>../models/heavyMachine</uri>
+    </include>
+    <include>
+      <name>base_mil_simple</name>
+      <pose>0 0 0 0 0 0</pose>
+      <uri>../models/military_base_simple</uri>
+    </include>
+    <actor name="actor_walking">
+      <skin>
+        <filename>../models/walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walk">
+        <filename>../models/walk.dae</filename>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <script>
+        <loop>true</loop>
+        <delay_start>0.000000</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" tension="0.6" type="walk">
+          <waypoint>
+            <time>0</time>
+            <pose>0 0 1.3 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>8</time>
+            <pose>15.0 0 1.3 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>9</time>
+            <pose>15 0 1.2 0 0 1.57</pose>
+          </waypoint>
+          <waypoint>
+            <time>16</time>
+            <pose>15 12 1.2 0 0 1.57</pose>
+          </waypoint>
+          <waypoint>
+            <time>17</time>
+            <pose>15 12 1.2 0 0 3.142</pose>
+          </waypoint>
+          <waypoint>
+            <time>25</time>
+            <pose>0 12 1.2 0 0 3.142</pose>
+          </waypoint>
+          <waypoint>
+            <time>26</time>
+            <pose>0 12 1.3 0 0 -1.57</pose>
+          </waypoint>
+          <waypoint>
+            <time>35</time>
+            <pose>0 0 1.3 0 0 -1.57</pose>
+          </waypoint>
+          <waypoint>
+            <time>36</time>
+            <pose>0 0 1.3 0 0 0</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+  </world>
+</sdf>
